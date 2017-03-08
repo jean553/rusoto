@@ -143,14 +143,16 @@ fn generate_client<P>(writer: &mut FileWriter, service: &Service, protocol_gener
             credentials_provider: P,
             region: region::Region,
             dispatcher: D,
+            endpoint_url: Option<String>
         }}
 
         impl<P, D> {type_name}<P, D> where P: ProvideAwsCredentials, D: DispatchSignedRequest {{
-            pub fn new(request_dispatcher: D, credentials_provider: P, region: region::Region) -> Self {{
+            pub fn new(request_dispatcher: D, credentials_provider: P, region: region::Region, endpoint_url: &str) -> Self {{
                   {type_name} {{
                     credentials_provider: credentials_provider,
                     region: region,
-                    dispatcher: request_dispatcher
+                    dispatcher: request_dispatcher,
+                    endpoint_url: endpoint_url.to_string()
                 }}
             }}
 

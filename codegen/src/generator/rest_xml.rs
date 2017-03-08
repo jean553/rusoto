@@ -31,7 +31,7 @@ impl GenerateProtocol for RestXmlGenerator {
                     {add_uri_parameters}
                     {modify_uri}
 
-                    let mut request = SignedRequest::new(\"{http_method}\", \"{endpoint_prefix}\", self.region, &request_uri);
+                    let mut request = SignedRequest::new(\"{http_method}\", \"{endpoint_prefix}\", self.region, &request_uri, &self.endpoint_url);
 
                     {set_headers}
                     {set_parameters}
