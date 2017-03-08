@@ -35,11 +35,12 @@ pub struct SignedRequest {
     pub payload: Option<Vec<u8>>,
     pub canonical_query_string: String,
     pub canonical_uri: String,
+    pub endpoint_url: String
 }
 
 impl SignedRequest {
     /// Default constructor
-    pub fn new(method: &str, service: &str, region: Region, path: &str) -> SignedRequest {
+    pub fn new(method: &str, service: &str, region: Region, path: &str, endpoint_url: &str) -> SignedRequest {
         SignedRequest {
             method: method.to_string(),
             service: service.to_string(),
@@ -51,6 +52,7 @@ impl SignedRequest {
             payload: None,
             canonical_query_string: String::new(),
             canonical_uri: String::new(),
+            endpoint_url: endpoint_url.to_string()
          }
     }
     pub fn set_content_type(&mut self, content_type: String) {
@@ -98,6 +100,10 @@ impl SignedRequest {
             Some(ref h) => h.to_string(),
             None => build_hostname(&self.service, self.region)
         }
+    }
+
+    pub fn endpoint_url(&self) -> &str {
+        &self.endpoint_url
     }
 
     // If the key exists in headers, set it to blank/unoccupied:
